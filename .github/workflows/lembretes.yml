@@ -1,0 +1,30 @@
+name: Lembrete de reunião (Makros)
+
+"on":
+  schedule:
+    # Roda a cada 5 minutos, o dia todo. Horário em UTC (o script já
+    # converte para o horário de Brasília internamente).
+    - cron: "*/5 * * * *"
+  # Permite disparar manualmente pela aba "Actions" do GitHub, útil pra testar.
+  workflow_dispatch:
+
+jobs:
+  enviar-lembretes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código deste repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Rodar o robô de lembretes
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: node send-reminders.js

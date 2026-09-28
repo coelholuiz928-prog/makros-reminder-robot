@@ -1,0 +1,10 @@
+{
+  "name": "makros-reminder-robot",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Robô gratuito (GitHub Actions) que envia notificação push de lembrete de reunião do Makros Command Center, mesmo com o app fechado ou o celular bloqueado.",
+  "main": "send-reminders.js",
+  "dependencies": {
+    "firebase-admin": "^12.6.0"
+  }
+}
